@@ -3,7 +3,9 @@ import fs from "fs/promises";
 import parseFrontMatter from "front-matter";
 import { marked } from "marked";
 
-const postsPath = 'posts';
+const posts = 'posts';
+
+const postsPath = path.join(process.cwd(), `netlify/functions/server/${posts}`);
 
 export async function getPost(slug) {
   const filepath = path.join(postsPath, slug + ".md");
@@ -26,7 +28,7 @@ export async function getPosts() {
         file.toString()
       );
       return {
-        slug: postsPath + '/' + filename.replace(/\.md$/, ""),
+        slug: posts + '/' + filename.replace(/\.md$/, ""),
         title: attributes.title
       };
     })
